@@ -1,3 +1,4 @@
+"use client";
 export default function ErrorPage() {
   return (
     <div className="min-h-screen bg-linear-to-br from-red-50 via-pink-50 to-purple-50 flex items-center justify-center px-4">
@@ -17,11 +18,7 @@ export default function ErrorPage() {
           Something Went Wrong
         </h2>
 
-        <p className="text-xl text-gray-600 mb-10 leading-relaxed">
-          AI thodi si naraz ho gayi hai...
-          <br />
-          Ya phir internet chala gaya!
-        </p>
+         
 
         {/* Action Buttons */}
         <div className="space-y-4">
@@ -41,9 +38,7 @@ export default function ErrorPage() {
         </div>
 
         {/* Footer */}
-        <p className="mt-12 text-gray-500 text-sm">
-          Agar baar baar aa raha hai to API key check kar lo bhai
-        </p>
+         
       </div>
     </div>
   );
