@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useInterviewStore } from "@/store/useInterviewStore";
 import { Role } from "@/store/useInterviewStore";
 import { generateInterviewQuestions } from "@/lib/gemini";
+import LoadingPage from "../interview/LoadingPage";
 
 export default function InterviewConfig() {
   const router = useRouter();
@@ -16,15 +17,15 @@ export default function InterviewConfig() {
     difficultyLevels,
     setSelectedDifficulty,
     selectedDifficulty,
-    setLoading,
-    
+    loading,
+    //setLoading,
   } = useInterviewStore();
   const availableRoles = getAvailableRoles();
   //console.log(selectedExperience);
   const isStartDisabled =
     role === "" || selectedExperience === "" || selectedDifficulty === "";
   const startInterview = async () => {
-    setLoading(true);
+    useInterviewStore.getState().setLoading(true);
 
     try {
       const questtions = await generateInterviewQuestions({
@@ -39,9 +40,11 @@ export default function InterviewConfig() {
       console.error("Failed to start interview:", error);
       router.push("/error");
     } finally {
-      setLoading(false);
+      useInterviewStore.getState().setLoading(false);
     }
   };
+  if(loading === true) return <LoadingPage/>;
+
   return (
     <div className="min-h-screen bg-linear-to-br from-purple-900 to-blue-900 py-12 px-4">
       <div className="max-w-3xl mx-auto">
