@@ -1,125 +1,131 @@
-// store/useInterviewStore.ts
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
+// src/store/useInterviewStore.ts
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
-type Difficulty = 'Easy' | 'Medium' | 'Hard';
+export type Role =
+  | "Frontend Developer"
+  | "Backend Developer"
+  | "Full Stack Developer"
+  | "React Developer";
 
-export type Question = {
+export type ExperienceLevel = "0-3" | "3-5" | "5+" | "10+";
+export type DifficultyLevel = "Easy" | "Medium" | "Hard";
+
+interface Question {
   question: string;
   options: string[];
   correct: number;
   explanation: string;
-};
+}
 
-type InterviewState = {
+interface InterviewStore {
   // Config
-  role: string;
-  experience: string;
-  difficulty: Difficulty;
-  resume: File | null;
-  customInstructions: string;
+  role: Role | "";
+  setRole: (role: Role | "") => void;
+  getAvailableRoles: () => Role[];
 
-  // Session
-  sessionId: string | null;
+  experienceLevels: ExperienceLevel[];
+  selectedExperience: ExperienceLevel | "";
+  setSelectedExperience: (level: ExperienceLevel | "") => void;
+
+  difficultyLevels: DifficultyLevel[];
+  selectedDifficulty: DifficultyLevel | "";
+  setSelectedDifficulty: (level: DifficultyLevel | "") => void;
+
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+
+  // Interview
   questions: Question[];
+  setQuestions: (questions: Question[]) => void;
+
   currentQuestionIndex: number;
+  setCurrentQuestionIndex: (index: number) => void;
+
   userAnswers: (number | null)[];
-  score: number | null;
-  startedAt: string | null;
-  endedAt: string | null;
+  setUserAnswers: (answers: (number | null)[]) => void;
 
-  // Actions
-  setConfig: (config: {
-    role: string;
-    experience: string;
-    difficulty: Difficulty;
-    resume: File | null;
-    customInstructions: string;
-  }) => void;
-
-  startSession: (sessionId: string, questions: Question[]) => void;
-  answerQuestion: (answerIndex: number) => void;
+  // Navigation & Actions
   nextQuestion: () => void;
   previousQuestion: () => void;
-  endSession: () => void;
-  reset: () => void;
-};
+  resetInterview: () => void;
+}
 
-export const useInterviewStore = create<InterviewState>()(
-  devtools((set) => ({
-    // Initial state
-    role: '',
-    experience: '',
-    difficulty: 'Medium',
-    resume: null,
-    customInstructions: '',
-    sessionId: null,
-    questions: [],
-    currentQuestionIndex: 0,
-    userAnswers: [],
-    score: null,
-    startedAt: null,
-    endedAt: null,
+export const useInterviewStore = create<InterviewStore>()(
+  devtools(
+    (set) => ({
+      // Default State
+      role: "Frontend Developer",
+      selectedExperience: "",
+      selectedDifficulty: "",
+      loading: false,
+      questions: [],
+      currentQuestionIndex: 0,
+      userAnswers: [],
 
-    // Actions
-    setConfig: (config) => set(config),
+      experienceLevels: ["0-3", "3-5", "5+", "10+"],
+      difficultyLevels: ["Easy", "Medium", "Hard"],
 
-    startSession: (sessionId, questions) =>
-      set({
-        sessionId,
-        questions,
-        userAnswers: new Array(questions.length).fill(null),
-        currentQuestionIndex: 0,
-        score: null,
-        startedAt: new Date().toISOString(),
-        endedAt: null,
-      }),
+      // Getters
+      getAvailableRoles: () => [
+        "Frontend Developer",
+        "Backend Developer",
+        "Full Stack Developer",
+        "React Developer",
+      ],
 
-    answerQuestion: (answerIndex) =>
-      set((state) => {
-        const newAnswers = [...state.userAnswers];
-        newAnswers[state.currentQuestionIndex] = answerIndex;
-        return { userAnswers: newAnswers };
-      }),
+      // Setters
+      setRole: (role) => set({ role }),
+      setSelectedExperience: (selectedExperience) => set({ selectedExperience }),
+      setSelectedDifficulty: (selectedDifficulty) => set({ selectedDifficulty }),
+      setLoading: (loading) => set({ loading }),
 
-    nextQuestion: () =>
-      set((state) => ({
-        currentQuestionIndex: Math.min(state.currentQuestionIndex + 1, state.questions.length - 1),
-      })),
+      setQuestions: (questions) =>
+        set({
+          questions,
+          userAnswers: new Array(questions.length).fill(null),
+          currentQuestionIndex: 0,
+        }),
 
-    previousQuestion: () =>
-      set((state) => ({
-        currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0),
-      })),
+      setCurrentQuestionIndex: (index) => set({ currentQuestionIndex: index }),
+      setUserAnswers: (answers) => set({ userAnswers: answers }),
 
-    endSession: () =>
-      set((state) => {
-        // Calculate score
-        const correct = state.userAnswers.reduce((acc, answer, i) => {
-          return answer === state.questions[i]?.correct ? acc + 1 : acc;
-        }, 0);
-        const percentage = Math.round((correct / state.questions.length) * 100);
+      // Safe Navigation
+      nextQuestion: () =>
+        set((state) => ({
+          currentQuestionIndex: Math.min(
+            state.currentQuestionIndex + 1,
+            state.questions.length - 1
+          ),
+        })),
 
-        return {
-          score: percentage,
-          endedAt: new Date().toISOString(),
-        };
-      }),
+      previousQuestion: () =>
+        set((state) => ({
+          currentQuestionIndex: Math.max(state.currentQuestionIndex - 1, 0),
+        })),
 
-    reset: () =>
-      set({
-        role: '',
-        experience: '',
-        difficulty: 'Medium',
-        resume: null,
-        customInstructions: '',
-        sessionId: null,
-        questions: [],
-        currentQuestionIndex: 0,
-        userAnswers: [],
-        score: null,
-        startedAt: null,
-        endedAt: null,
-      }),
-  }))
+      // Reset Everything
+      resetInterview: () =>
+        set({
+          role: "Frontend Developer",
+          selectedExperience: "",
+          selectedDifficulty: "",
+          loading: false,
+          questions: [],
+          currentQuestionIndex: 0,
+          userAnswers: [],
+        }),
+    }),
+    { name: "InterviewStore" }
+  )
 );
+
+declare global {
+  interface Window {
+    store: typeof useInterviewStore;
+  }
+}
+
+if (typeof window !== "undefined") {
+  window.store = useInterviewStore;
+}
