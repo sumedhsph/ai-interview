@@ -1,7 +1,6 @@
-// app/page.tsx
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-purple-900 to-blue-900 flex items-center justify-center p-8">
+    <main className="min-h-screen bg-linear-to-br from-purple-900 to-blue-900 flex items-center justify-center p-8">
       <div className="max-w-4xl text-center">
         <h1 className="text-6xl font-bold text-white mb-6">
           AI Interview Master
