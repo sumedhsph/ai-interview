@@ -3,9 +3,9 @@ name: Test → Build → Deploy
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master, main ]
   pull_request:
-    branches: [ main ]
+    branches: [ master, main ]
 
 jobs:
   test-and-deploy:
