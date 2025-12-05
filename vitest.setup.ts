@@ -1,9 +1,11 @@
-// vitest.setup.ts
-import '@testing-library/jest-dom'
+// vitest.setup.ts  (root mein)
+import '@testing-library/jest-dom';
 
-// Optional: Polyfill for TextEncoder if needed (rarely required)
+// Safe TextEncoder polyfill (import style – no require)
 if (typeof global.TextEncoder === 'undefined') {
-  const { TextEncoder, TextDecoder } = require('util')
-  global.TextEncoder = TextEncoder
-  global.TextDecoder = TextDecoder
+  const { TextEncoder, TextDecoder } = await import('util');
+  // @ts-ignore
+  global.TextEncoder = TextEncoder;
+  // @ts-ignore
+  global.TextDecoder = TextDecoder;
 }
