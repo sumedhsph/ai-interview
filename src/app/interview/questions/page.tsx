@@ -2,12 +2,12 @@
 
 import { useInterviewStore } from "@/store/useInterviewStore";
 //import { use } from "react";
-import InterviewLoading from "../loading/page";
+ 
 import { useRouter } from "next/navigation";
 
 export default function InterviewQuestions() {
   const {
-    loading,
+   // loading,
     questions,
     role,
     selectedExperience,
@@ -28,7 +28,7 @@ export default function InterviewQuestions() {
     useInterviewStore.getState().setUserAnswers(answers);
   };
 
-  if (loading) return <InterviewLoading />;
+  
 
   return (
     <div className="min-h-screen bg-linear-to-br from-purple-900 to-blue-900 py-8 px-4">
