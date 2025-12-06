@@ -104,7 +104,7 @@ export default function InterviewConfig() {
                     role="experience"
                     key={exp}
                     onClick={() => setSelectedExperience(exp)}
-                    className={`py-4 px-2 text-lg font-medium border-2 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition ${
+                    className={`py-4 px-2 cursor-pointer text-lg text-purple-900 font-medium border-2 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition ${
                       selectedExperience === exp
                         ? "border-purple-500 bg-purple-50"
                         : "border-gray-300"
@@ -126,7 +126,7 @@ export default function InterviewConfig() {
                   const isSelected = selectedDifficulty === level;
                   const anySelected = selectedDifficulty !== "";
                   const baseClasses =
-                    "py-8 rounded-2xl text-2xl font-bold transition shadow-lg w-full";
+                    "py-8 rounded-2xl text-lg font-bold transition shadow-lg w-full";
                   const activeClasses =
                     level === "Easy"
                       ? "bg-green-500 hover:bg-green-600 text-white"
