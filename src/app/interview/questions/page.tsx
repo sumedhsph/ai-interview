@@ -35,7 +35,7 @@ export default function InterviewQuestions() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-3xl shadow-2xl p-8 mb-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-5xl font-bold bg-linear-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
             Your Mock Interview is Ready!
           </h1>
           <p className="text-xl text-gray-600 mt-4">
@@ -56,7 +56,7 @@ export default function InterviewQuestions() {
 
         {/* Question Card */}
         <div className="bg-white rounded-3xl shadow-2xl p-10 mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8">
+          <h2 className="text-xl md:text-3xl font-bold text-gray-800 mb-8">
             {currentQ?.question}
           </h2>
 
@@ -68,9 +68,9 @@ export default function InterviewQuestions() {
                 <button
                   key={i}
                   onClick={() => handleOptionsClick(i)}
-                  className={`w-full text-left p-6 text-xl bg-gray-50 border-2 rounded-2xl transition ${
+                  className={`w-full text-left p-4 text-xl cursor-pointer bg-gray-50 text-purple-900 border-2 rounded-2xl transition ${
                     isSelected
-                      ? "border-purple-500 bg-purple-50"
+                      ? "border-purple-500 bg-purple-200"
                       : "border-gray-300 hover:border-purple-400 hover:bg-purple-50"
                   }`}
                 >

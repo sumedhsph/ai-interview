@@ -102,10 +102,10 @@ export default function ResultClient() {
                     key={i}
                     className={`p-8 rounded-2xl border-4 transition-all ${
                       isCorrect
-                        ? "bg-purple-400 border-green-500"
+                        ? "bg-purple-300 border-green-500"
                         : userAns === null
-                        ? "bg-purple-400 border-gray-400"
-                        : "bg-purple-400 border-red-500"
+                        ? "bg-purple-300 border-gray-400"
+                        : "bg-purple-300 border-red-500"
                     }`}
                   >
                     <div className="flex items-start justify-between mb-4">

@@ -8,7 +8,10 @@ export default function Home() {
         <p className="text-xl text-gray-200 mb-10">
           Real interview feel • Instant AI feedback • Score + Graph + Resources
         </p>
-        <a href="/interview" className="bg-white text-purple-900 px-12 py-6 rounded-full text-2xl font-bold hover:scale-110 transition shadow-2xl">
+        <a href="/interview" className="bg-white text-purple-900
+         px-8 py-4 rounded-full text-sm font-bold
+         hover:scale-110 transition shadow-2xl
+         md:px-12 md:py-6 md:text-2xl md:hover:shadow-purple-400/30">
           Start Mock Interview 🚀
         </a>
       </div>
