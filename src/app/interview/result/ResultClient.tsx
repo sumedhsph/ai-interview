@@ -36,7 +36,7 @@ export default function ResultClient() {
     if (percentage >= 80) return { text: "Outstanding! You're Hire-Ready!", color: "text-green-400" };
     if (percentage >= 70) return { text: "Very Good! Just a little polish needed", color: "text-yellow-400" };
     if (percentage >= 50) return { text: "Good Effort! Keep Practicing", color: "text-orange-400" };
-    return { text: "You need more practice bhai!", color: "text-red-400" };
+    return { text: "You need more practice, keep going!", color: "text-red-400" };
   };
 
   const { text: message, color: messageColor } = getPerformanceMessage();
